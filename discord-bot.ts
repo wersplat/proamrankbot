@@ -1,4 +1,4 @@
-import { Client, GatewayIntentBits, Message, MessageAttachment } from 'discord.js';
+import { Client, GatewayIntentBits, Message, Attachment } from 'discord.js';
 import axios from 'axios';
 import dotenv from 'dotenv';
 
