@@ -61,6 +61,13 @@ function buildProfileEmbed(profile) {
       { name: 'RP', value: `${rpValue}`, inline: true },
       { name: 'Global Rank', value: totalPlayers ? `#${globalRank} of ${totalPlayers} (${rankPercentile}th pct)` : 'N/A', inline: true },
       { name: 'Recent Form', value: formatRecentStats(recentStats), inline: false },
+      {
+        name: 'Proamrank Profile',
+        value: player?.id
+          ? `[proamrank.gg/players/${player.id}](https://proamrank.gg/players/${player.id})`
+          : 'Not available',
+        inline: false,
+      },
       { name: 'Awards', value: formatAwards(awards), inline: false },
       { name: 'Highlights', value: formatVideos(videos), inline: false },
       { name: 'Handles', value: formatHandles(handles), inline: false },

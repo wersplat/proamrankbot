@@ -21,7 +21,7 @@ const BASE_PLAYER_SELECT = `
   tiktok_url,
   discord_url,
   facebook_url,
-  teams(name,logo_url)
+  teams:teams!players_current_team_id_fkey(name,logo_url)
 `;
 
 function pickRp(player) {
