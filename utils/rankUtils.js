@@ -42,32 +42,10 @@ function getTeamRole(player, team) {
 
 /**
  * Get role name based on event status
- * @param {object} player - Player object
- * @param {array} events - Events player is registered for
- * @param {array} draftPool - Draft pool entries for player
+ * Event role handling currently disabled (no event registrations / draft pool)
  * @returns {string} Role name
  */
-function getEventRole(player, events, draftPool) {
-  // Check if player is in draft pool for any active event
-  if (draftPool && draftPool.length > 0) {
-    // Check if any draft pool entry has status 'drafted'
-    const draftedEntry = draftPool.find(entry => entry.status === 'drafted');
-    if (draftedEntry) {
-      return 'Drafted';
-    }
-    
-    // Check if any draft pool entry has status 'available'
-    const availableEntry = draftPool.find(entry => entry.status === 'available');
-    if (availableEntry) {
-      return 'In Pool';
-    }
-  }
-  
-  // Check if player is registered for any active event
-  if (events && events.length > 0) {
-    return 'Registered';
-  }
-  
+function getEventRole() {
   return 'No Events';
 }
 

@@ -16,21 +16,27 @@ const client = new Client({
 // Create a collection for commands
 client.commands = new Collection();
 
-// Load command files
-const commandsPath = path.join(__dirname, 'commands');
-const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
+function loadCommandFiles(dir) {
+  const entries = fs.readdirSync(dir, { withFileTypes: true });
+  for (const entry of entries) {
+    const fullPath = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      loadCommandFiles(fullPath);
+      continue;
+    }
+    if (!entry.name.endsWith('.js')) continue;
 
-for (const file of commandFiles) {
-  const filePath = path.join(commandsPath, file);
-  const command = require(filePath);
-  
-  // Set a new item in the Collection with the key as the command name and the value as the exported module
-  if ('data' in command && 'execute' in command) {
-    client.commands.set(command.data.name, command);
-  } else {
-    console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
+    const command = require(fullPath);
+    if ('data' in command && 'execute' in command) {
+      client.commands.set(command.data.name, command);
+    } else {
+      console.log(`[WARNING] The command at ${fullPath} is missing a required "data" or "execute" property.`);
+    }
   }
 }
+
+// Load command files (recursively to include admin/ subfolder)
+loadCommandFiles(path.join(__dirname, 'commands'));
 
 // When the client is ready, run this code (only once)
 client.once(Events.ClientReady, c => {

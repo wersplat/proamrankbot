@@ -63,20 +63,8 @@ async function updatePlayerRoles(player) {
     }
   }
   
-  // Get player's event status
-  const { data: events, error: eventsError } = await supabase
-    .from('event_registrations')
-    .select('events(name, status)')
-    .eq('player_id', player.id)
-    .eq('events.open_status', true);
-  
-  const { data: draftPool, error: draftPoolError } = await supabase
-    .from('draft_pool')
-    .select('status, events(name)')
-    .eq('player_id', player.id)
-    .eq('events.open_status', true);
-  
-  const eventRole = getEventRole(player, events, draftPool);
+  // Event roles are currently disabled (registration and draft pool removed)
+  const eventRole = getEventRole();
   
   console.log(`Player ${player.gamertag} (${player.discord_id}) should have roles:`, {
     tierRole,

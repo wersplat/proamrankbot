@@ -38,6 +38,20 @@ A Discord bot for NBA 2K Global Rankings system with Supabase integration.
    npm start
    ```
 
+### Register slash commands
+
+Set these env vars in your shell or `.env`:
+- `DISCORD_TOKEN` - bot token
+- `DISCORD_CLIENT_ID` - application client ID
+- `DISCORD_GUILD_ID` - (optional) target guild for fast registration; omit for global
+
+Then deploy commands:
+```
+npm run deploy:commands
+```
+
+If you add or rename commands, redeploy with the same command. Global registrations can take up to an hour to propagate; guild-scoped registrations are instant.
+
 ## Commands
 
 ### Player Registration

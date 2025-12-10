@@ -56,31 +56,7 @@ module.exports = {
       return interaction.reply({ content: 'No event found with that ID.', ephemeral: true });
     }
     
-    // Check if player participated in the event
-    const { data: registration, error: registrationError } = await supabase
-      .from('event_registrations')
-      .select('*')
-      .eq('player_id', player.id)
-      .eq('event_id', eventId)
-      .single();
-    
-    // Also check draft pool for draft events
-    const { data: draftPoolEntry, error: draftPoolError } = await supabase
-      .from('draft_pool')
-      .select('*')
-      .eq('player_id', player.id)
-      .eq('event_id', eventId)
-      .single();
-    
-    if ((registrationError && registrationError.code !== 'PGRST116') || 
-        (draftPoolError && draftPoolError.code !== 'PGRST116')) { // PGRST116 means no rows returned
-      console.error('Error checking event participation:', registrationError || draftPoolError);
-      return interaction.reply({ content: 'Error checking event participation.', ephemeral: true });
-    }
-    
-    if (!registration && !draftPoolEntry) {
-      return interaction.reply({ content: 'That player did not participate in this event.', ephemeral: true });
-    }
+    // Participation checks are disabled (event registrations/draft pool removed)
     
     // Check if player already has MVP award for this event
     const { data: existingAward, error: awardError } = await supabase
